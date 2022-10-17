@@ -1,0 +1,48 @@
+<form [formGroup]="myForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+  <div class="mb-3">
+    <label for="validationCustom01" class="form-label">Постер фильма(ссылка на изображение):</label>
+    <input formControlName="poster" type="text" class="form-control form-image" id="validationCustom01">
+    <div *ngIf="myForm.controls['poster'].invalid && (myForm.controls['poster'].touched ||
+      myForm.controls['poster'].dirty)">
+      <div class="alert alert-danger" *ngIf="myForm.controls['poster'].errors?.['required']">
+        Это поле обязательно для заполнения
+      </div>
+      <div class="alert alert-danger" *ngIf="myForm.controls['poster'].errors?.['pattern']">
+        Пожалуйста, вставьте корректную ссылку
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="validationCustom02" class="form-label">Название:</label>
+    <input formControlName="name" type="text" class="form-control form-name" id="validationCustom02">
+    <div *ngIf="myForm.controls['name'].invalid && (myForm.controls['name'].touched || myForm.controls['name'].dirty)">
+      <div class="alert alert-danger" *ngIf="myForm.controls['name'].errors?.['required']">
+        Это поле обязательно для заполнения
+      </div>
+      <div class="alert alert-danger" *ngIf="myForm.controls['name'].errors?.['minlength']">
+        Название должно быть больше 3-х символов
+      </div>
+      <!-- Problem alert -->
+      <div class="alert alert-danger" *ngIf="myForm.controls['name'].errors?.['dataService.checkNameMovieValidator']">
+        Фильм с таким названием уже существует
+      </div>
+      <div class="alert alert-danger"
+        *ngIf="myForm.controls['name'].errors?.['dataService.checkNameMovieEditValidator']">
+        Фильм с таким названием уже существует
+      </div>
+      <!-- Problem alert -->
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="validationCustom03" class="form-label">Дата выхода:</label>
+    <input formControlName="date" type="date" class="form-control form-date" id="validationCustom03">
+    <div class="alert alert-danger"
+      *ngIf="myForm.controls['date'].invalid && (myForm.controls['date'].touched || myForm.controls['date'].dirty)">
+      Это поле обязательно для заполнения
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-movie-close" (click)="activeModal.close()">Отмена</button>
+    <input type="submit" class="btn btn-primary btn-movie" [value]="status" [disabled]="myForm.invalid">
+  </div>
+</form>

@@ -1,0 +1,24 @@
+      <div
+        class="title pt-5 pb-2 border-bottom border-4 border-info mb-4 d-flex justify-content-between align-items-center">
+        <h1 class="h1 text-dark">Список фильмов и сериалов:</h1>
+        <div class="d-flex ">
+          <div class="form-outline">
+            <input [(ngModel)]="filter" type="search" id="form1" class="form-control" placeholder="Поиск фильмов"
+              aria-label="Search" />
+          </div>
+          <button class="btn btn-primary ms-2" (click)="open()">Добавить фильм</button>
+        </div>
+      </div>
+
+      <div class="column-movies">
+        <div *ngIf="dataService.movies.length! > 0; else unset">
+          <app-movie class="card mb-3" *ngFor="let movie of dataService.movies | filterMovies: filter  let i = index"
+            [movie]="movie" [i]="i">
+          </app-movie>
+        </div>
+        <ng-template #unset>
+          <h3 class="d-flex align-items-center justify-content-center h5 pt-5">На данный
+            момент
+            нет фильмов</h3>
+        </ng-template>
+      </div>

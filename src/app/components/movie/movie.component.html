@@ -1,0 +1,30 @@
+<div class="row g-0 movies">
+  <div class="col-md-2">
+    <img [src]="movie?.poster" class="img-fluid rounded-start w-100" [alt]="movie?.name" />
+  </div>
+  <div class="col-md-8 d-flex justify-content-between flex-fill">
+    <div class="card-body">
+      <h2 class="card-title fw-bold movie-name" #name>
+        {{ movie?.name }}
+      </h2>
+      <p class="card-text">
+        {{ movie?.date }}
+      </p>
+    </div>
+    <div class="btn-group me-3 d-flex align-items-center" role="group" aria-label="Basic checkbox toggle button group">
+      <input type="checkbox" class="btn-check movie-favourite" id="btncheck{{i}}" autocomplete="off"
+        (click)="dataService.cheked(name.textContent!)" [checked]="movie?.inFavourite" />
+      <label class="btn btn-outline-primary" for="btncheck{{i}}">Избранное</label>
+    </div>
+    <div class="dropdown d-flex align-items-center me-3" ngbDropdown>
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownBasic1" ngbDropdownToggle>
+        Действие
+      </button>
+      <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <li><button class="dropdown-item" ngbDropdownItem (click)="deleteMovie()">Удалить</button></li>
+        <li><button class="dropdown-item" ngbDropdownItem (click)="open()" (click)="redacMovie()">Редактировать</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
